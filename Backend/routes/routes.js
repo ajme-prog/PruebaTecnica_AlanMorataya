@@ -18,7 +18,7 @@ router.post('/LoginCorreo', async function (req, res, next) {
         }
     } catch (err) {
         console.error(`Error al iniciar sesión con correo `, err.message);
-        next(err);
+        res.json({data:respuesta,status:200});
     }
 });
 
@@ -38,11 +38,29 @@ router.post('/LoginTelefono', async function (req, res, next) {
         }
     } catch (err) {
         console.error(`Error al iniciar sesión con correo `, err.message);
-        next(err);
+        res.json({data:respuesta,status:200});
     }
 });
 
-
+//Endpoint para registro de usuarios
+router.post('/NuevoUsuario', async function (req, res, next) {
+    // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
+     try {
+         let respuesta = await programacion.NuevoUsuario(req.body.cui,req.body.nombre,req.body.correo,req.body.telefono,req.body.password);
+ 
+         if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+           
+             res.json({mensaje:"Error al crear el usuario",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+          
+         } else {
+             res.json({data:respuesta,status:200});
+         }
+     } catch (err) {
+         console.error(`Error al crear el usuario `, err.message);
+         res.json({data:"Error",status:500});
+     }
+ });
+ 
 
 //Obtener todos los usuarios
 router.get('/GetUsuarios', async function (req, res, next) {

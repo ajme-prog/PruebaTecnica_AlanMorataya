@@ -38,7 +38,30 @@ async function LoginTelefono(telefono,password){
       return rows[0];
 }
 
-
+//--funcion para registrar usuario
+async function NuevoUsuario(Cui,Nombre,Correo,Telefono,Password){
+    const result = await db.queryParams(
+   
+      `INSERT INTO Usuarios 
+      (Cui,Nombre,Correo,Telefono,Password,Rol,Puntos)
+      VALUES 
+      (?, ?, ?, ?, ?,?,?)`, 
+      [ Cui, Nombre,Correo, Telefono,Password,'1',0     // el 1 significar rol usuario y se crea con 0 puntos
+       
+      ]
+    );
+  
+  
+  
+    if (result.affectedRows) {
+      message = 'Usuario creado correctamente';
+      return {message};
+    }else{
+        return null
+    }
+  
+    
+  }
 //---funcion para obtener todos los usuarios de la bd
 async function getUsuarios(){
   
@@ -57,5 +80,6 @@ async function getUsuarios(){
 module.exports = {
     getUsuarios,
     LoginCorreo,
-    LoginTelefono
+    LoginTelefono,
+    NuevoUsuario
   }
