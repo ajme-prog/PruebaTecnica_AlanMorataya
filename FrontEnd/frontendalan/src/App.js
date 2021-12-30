@@ -6,6 +6,7 @@ import LoginTelefono from './Paginas/LoginTelefono';
 import Dashboardadmin from './Paginas/Dashboardadmin';
 import Dashboardusuario from './Paginas/Dashboardusuario';
 import Paginainicio from './Paginas/Paginadeincio';
+import NuevoUsuario from './Paginas/NuevoUsuario';
 import { AuthProvider } from './Context/AuthProvider'
 import {
   BrowserRouter,
@@ -26,6 +27,7 @@ function App() {
           <Route path="/logintelefono" element={<LoginTelefono />} />
           <Route path="/admin" element={<Dashboardadmin />} />
           <Route path="/usuario" element={<Dashboardusuario />} />
+          <Route path="/registro" element={<NuevoUsuario />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>
