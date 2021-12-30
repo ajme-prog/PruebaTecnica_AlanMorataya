@@ -4,7 +4,7 @@ const programacion = require('../services/programacion.js');
 
 
 //Endpoint Login
-router.post('/LoginCorreo', async function (req, res, next) {
+router.post('/LoginCorreo', async function (req, res) {
     console.log("correo es "+req.body.correo + " password es "+req.body.password)
     try {
         let respuesta = await programacion.LoginCorreo(req.body.correo,req.body.password);
@@ -18,13 +18,13 @@ router.post('/LoginCorreo', async function (req, res, next) {
         }
     } catch (err) {
         console.error(`Error al iniciar sesión con correo `, err.message);
-        res.json({data:respuesta,status:200});
+        res.json({data:"Error",status:500});
     }
 });
 
 
 //Endpoint Login
-router.post('/LoginTelefono', async function (req, res, next) {
+router.post('/LoginTelefono', async function (req, res) {
    // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
     try {
         let respuesta = await programacion.LoginTelefono(req.body.telefono,req.body.password);
@@ -38,12 +38,12 @@ router.post('/LoginTelefono', async function (req, res, next) {
         }
     } catch (err) {
         console.error(`Error al iniciar sesión con correo `, err.message);
-        res.json({data:respuesta,status:200});
+        res.json({data:"Error",status:500});
     }
 });
 
 //Endpoint para registro de usuarios
-router.post('/NuevoUsuario', async function (req, res, next) {
+router.post('/NuevoUsuario', async function (req, res) {
     // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
      try {
          let respuesta = await programacion.NuevoUsuario(req.body.cui,req.body.nombre,req.body.correo,req.body.telefono,req.body.password);
@@ -62,6 +62,8 @@ router.post('/NuevoUsuario', async function (req, res, next) {
  });
  
 
+ 
+
 //Obtener todos los usuarios
 router.get('/GetUsuarios', async function (req, res, next) {
     try {
@@ -71,5 +73,28 @@ router.get('/GetUsuarios', async function (req, res, next) {
         next(err);
     }
 });
+
+
+
+//Endpoint para registro de Premios
+router.post('/NuevoPremio', async function (req, res) {
+    // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
+     try {
+         let respuesta = await programacion.NuevoPremio(req.body.nombre,req.body.valor);
+ 
+         if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+           
+             res.json({mensaje:"Error al crear el premio",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+          
+         } else {
+             res.json({data:respuesta,status:200});
+         }
+     } catch (err) {
+         console.error(`Error al crear el premio `, err.message);
+         res.json({data:"Error",status:500});
+     }
+ });
+ 
+
 
 module.exports = router;

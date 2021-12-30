@@ -77,9 +77,36 @@ async function getUsuarios(){
 }
 
 
+
+//--funcion para registrar premios
+async function NuevoPremio(Nombre,Valor){
+    const result = await db.queryParams(
+   
+      `INSERT INTO Premios 
+      (Nombre,Estado,Valor)
+      VALUES 
+      (?, ?, ? )`, 
+      [ Nombre,true,Valor     // el true es para el campo byte, quiere decir que esta disponible el premio
+       
+      ]
+    );
+  
+  
+  
+    if (result.affectedRows) {
+      message = 'Premio creado correctamente';
+      return {message};
+    }else{
+        return null
+    }
+  
+    
+  }
+
 module.exports = {
     getUsuarios,
     LoginCorreo,
     LoginTelefono,
-    NuevoUsuario
+    NuevoUsuario,
+    NuevoPremio
   }
