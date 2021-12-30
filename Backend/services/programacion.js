@@ -79,14 +79,14 @@ async function getUsuarios(){
 
 
 //--funcion para registrar premios
-async function NuevoPremio(Nombre,Valor){
+async function NuevoPremio(Nombre,Descripcion,Valor){
     const result = await db.queryParams(
    
       `INSERT INTO Premios 
-      (Nombre,Estado,Valor)
+      (Nombre,Descripcion,Estado,Valor)
       VALUES 
-      (?, ?, ? )`, 
-      [ Nombre,true,Valor     // el true es para el campo byte, quiere decir que esta disponible el premio
+      (?, ?, ? ,?)`, 
+      [ Nombre,Descripcion,true,Valor     // el true es para el campo byte, quiere decir que esta disponible el premio
        
       ]
     );

@@ -67,3 +67,43 @@ export var NuevoUsuarioApi = async function (
     }),
   });
 };
+
+
+//---Llamada api de nuevopremio
+export var NuevoPremioApi = async function (
+  nombre,
+  descripcion,
+  valor
+) {
+ 
+
+  return fetch(url_api+"/NuevoPremio" , {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      nombre: nombre,
+      descripcion: descripcion,
+      valor: valor
+
+    }),
+  });
+};
+
+
+   //----funcion para obtener todos los usuarios
+   export async function GetUsuariosApi() {
+    // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));
+   // console.log("llamando a perfil usuario api")
+     return fetch(url_api + "/GetUsuarios", {
+       method: "GET",
+       headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+       },
+       mode: 'cors'    
+     });
+   }

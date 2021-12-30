@@ -63,12 +63,15 @@ router.post('/NuevoUsuario', async function (req, res) {
  });
  
 
+
+ 
  
 
 //Obtener todos los usuarios
 router.get('/GetUsuarios', async function (req, res, next) {
     try {
-        res.json(await programacion.getUsuarios());
+        let usuarios= await programacion.getUsuarios();
+        res.json({usuarios:usuarios, status:200});
     } catch (err) {
         console.error(`Error al obtener todos los usuarios `, err.message);
         next(err);
@@ -81,7 +84,7 @@ router.get('/GetUsuarios', async function (req, res, next) {
 router.post('/NuevoPremio', async function (req, res) {
     // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
      try {
-         let respuesta = await programacion.NuevoPremio(req.body.nombre,req.body.valor);
+         let respuesta = await programacion.NuevoPremio(req.body.nombre,req.body.descripcion,req.body.valor);
  
          if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
            

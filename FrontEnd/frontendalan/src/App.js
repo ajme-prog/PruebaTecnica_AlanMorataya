@@ -7,7 +7,10 @@ import Dashboardadmin from './Paginas/Dashboardadmin';
 import Dashboardusuario from './Paginas/Dashboardusuario';
 import Paginainicio from './Paginas/Paginadeincio';
 import NuevoUsuario from './Paginas/NuevoUsuario';
+import NuevoPremio from './Paginas/NuevoPremio';
+import VerUsuarios from './Paginas/VerUsuarios';
 import { AuthProvider } from './Context/AuthProvider'
+
 import {
   BrowserRouter,
   Routes,
@@ -28,6 +31,8 @@ function App() {
           <Route path="/admin" element={<Dashboardadmin />} />
           <Route path="/usuario" element={<Dashboardusuario />} />
           <Route path="/registro" element={<NuevoUsuario />} />
+          <Route path="/registropremio" element={<NuevoPremio />} />
+          <Route path="/verusuarios" element={<VerUsuarios />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>
