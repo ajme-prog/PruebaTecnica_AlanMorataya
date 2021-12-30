@@ -62,6 +62,30 @@ async function NuevoUsuario(Cui,Nombre,Correo,Telefono,Password){
   
     
   }
+
+
+//--funcion para registrar usuario
+async function ActualizarPuntosUsuario(Cui,Puntos){
+  const result = await db.queryParams(
+ 
+    `UPDATE  Usuarios SET Puntos = ? where CUI = ?`, 
+    [ Puntos, Cui   // el 1 significar rol usuario y se crea con 0 puntos
+     
+    ]
+  );
+
+
+
+  if (result.affectedRows) {
+    message = 'Usuario actualizado correctamente';
+    return {message};
+  }else{
+      return null
+  }
+
+  
+}
+  
 //---funcion para obtener todos los usuarios de la bd
 async function getUsuarios(){
   
@@ -108,5 +132,6 @@ module.exports = {
     LoginCorreo,
     LoginTelefono,
     NuevoUsuario,
-    NuevoPremio
+    NuevoPremio,
+    ActualizarPuntosUsuario
   }

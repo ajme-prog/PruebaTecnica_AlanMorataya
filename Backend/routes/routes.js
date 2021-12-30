@@ -63,6 +63,25 @@ router.post('/NuevoUsuario', async function (req, res) {
  });
  
 
+//Endpoint para registro de usuarios
+router.put('/ActualizarPuntos', async function (req, res) {
+    //console.log("cui es "+req.body.cui + " nombre es "+req.body.nombre + " correo es "+req.body.correo+ " telefono es "+req.body.telefono+ " password es "+req.body.password)
+     try {
+         let respuesta = await programacion.ActualizarPuntosUsuario(req.body.cui,req.body.puntos);
+ 
+         if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+           
+             res.json({mensaje:"Error al actualizar los puntos del usuario",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+          
+         } else {
+             res.json({data:respuesta,status:200});
+         }
+     } catch (err) {
+         console.error(`Error al actualizar los puntos del usuario`, err.message);
+         res.json({data:"Error",status:500});
+     }
+ });
+ 
 
  
  
