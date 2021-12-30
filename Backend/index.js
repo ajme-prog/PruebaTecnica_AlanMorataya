@@ -21,6 +21,6 @@ app.get('/GetUsuarios', function (req, res) {
 
 
 
-app.listen(3000, () => {
- console.log("Iniciando app de Prueba Técnica  en el puerto 3000");
+app.listen(5000, () => {
+ console.log("Iniciando app de Prueba Técnica  en el puerto 5000");
 });

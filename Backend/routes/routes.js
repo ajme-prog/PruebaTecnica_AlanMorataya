@@ -14,6 +14,7 @@ router.post('/LoginCorreo', async function (req, res) {
             res.json({mensaje:"login fallido",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
          
         } else {
+            console.log("Voy a devolver algo")
             res.json({data:respuesta,status:200});
         }
     } catch (err) {
