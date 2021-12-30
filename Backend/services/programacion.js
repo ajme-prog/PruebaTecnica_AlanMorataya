@@ -2,18 +2,39 @@ const db = require('../services/db.js');
 /*En este archivo se encuentras las funciones de js que mandan a ejecutar los querys */
 
 //---funcion para el login 
-async function LoginCorreo(cui){
+async function LoginCorreo(correo,password){
   
     const rows = await db.queryParams(
-      `SELECT * from Usuarios where cui=?`,  [
-        cui
+      `SELECT * from Usuarios where Correo=? and Password=?`,  [
+        correo,password
       ]
       
     );
 
-    if (!rows) {
-        return [];
+    if (!rows || rows.length==0) {
+       
+        return null;
       }
+  
+      return rows[0];
+}
+
+
+//---funcion para el login con telefono
+async function LoginTelefono(telefono,password){
+  
+    const rows = await db.queryParams(
+      `SELECT * from Usuarios where Telefono=? and Password=?`,  [
+        telefono,password
+      ]
+      
+    );
+
+    if (!rows || rows.length==0) {
+       
+        return null;
+      }
+   
       return rows[0];
 }
 
@@ -35,5 +56,6 @@ async function getUsuarios(){
 
 module.exports = {
     getUsuarios,
-    LoginCorreo
+    LoginCorreo,
+    LoginTelefono
   }
