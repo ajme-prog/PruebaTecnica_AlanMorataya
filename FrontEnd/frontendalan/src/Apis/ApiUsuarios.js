@@ -18,3 +18,23 @@ export var LoginCorreoApi = async function (
       }),
     });
   };
+
+  export var LoginTelefonoApi = async function (
+    telefono,
+    password
+  ) {
+   
+  console.log("si entro a logincorreoapi")
+    return fetch(url_api+"/LoginTelefono" , {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      mode: 'cors',
+      body: JSON.stringify({
+        telefono: telefono,
+        password: password,
+      }),
+    });
+  };

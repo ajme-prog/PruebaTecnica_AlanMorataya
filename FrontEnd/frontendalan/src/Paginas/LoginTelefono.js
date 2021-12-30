@@ -4,10 +4,10 @@ import { Form, FormGroup, Card,FormLabel, FormText, FormControl, Button, Contain
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider'
 import Swal from "sweetalert2";
-const LoginCorreo = () => {
-    const {usuario,  cerrarSesion, iniciarSesion}=useContext(AuthContext);
+const LoginTelefono = () => {
+    const {usuario,  cerrarSesion, iniciarSesion,iniciarSesionTelefono}=useContext(AuthContext);
     const navigate = useNavigate();
-    const correoRef = useRef();
+    const telefonoRef = useRef();
     const passwordRef = useRef();
 //---componente para el toast
 const Toast = Swal.mixin({
@@ -27,7 +27,7 @@ async function handleSubmit(e) {
     e.preventDefault();
     try {
    
-      const rawResponse = await iniciarSesion(correoRef.current.value,passwordRef.current.value)
+      const rawResponse = await iniciarSesionTelefono(telefonoRef.current.value,passwordRef.current.value)
       
       if (rawResponse.status==200) {
         Toast.fire({
@@ -51,7 +51,7 @@ async function handleSubmit(e) {
           timer: 3000,
         });
   
-        correoRef.current.value = "";
+        telefonoRef.current.value = "";
         passwordRef.current.value = "";
       }else {
         Toast.fire({
@@ -59,7 +59,7 @@ async function handleSubmit(e) {
           title: `¡Ocurrio un error en el servidor!`,
           timer: 3000,
         });
-        correoRef.current.value = "";
+        telefonoRef.current.value = "";
         passwordRef.current.value = "";
       }
     //  setLoading(false);
@@ -85,8 +85,9 @@ async function handleSubmit(e) {
 
                         <Form>
                         <div class="row align-center mb-2 p-2" >
-                                <Form.Label >Correo</Form.Label>
-                                <Form.Control type="email" placeholder="Ingrese su correo" ref={correoRef} />
+                            
+                                <Form.Label >Teléfono</Form.Label>
+                                <Form.Control type="tel" placeholder="Ingrese su No. de teléfono" ref={telefonoRef} />
                                 <Form.Text className="text-muted">
 
                                 </Form.Text>
@@ -108,4 +109,4 @@ async function handleSubmit(e) {
     );
 }
 
-export default LoginCorreo
+export default LoginTelefono

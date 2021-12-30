@@ -9,7 +9,7 @@ const NavbarAdmin = () => {
     function handlecerrarsesion(e){
         e.preventDefault();
         cerrarSesion();
-        navigate("/login")
+        navigate("/")
     }
     return (
   <>

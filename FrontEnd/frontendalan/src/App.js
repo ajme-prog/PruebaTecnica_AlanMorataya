@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
 import Inicio from './Paginas/NavbarUsuario';
-import LoginTelefono from './Paginas/LoginCorreo'
+import LoginCorreo from './Paginas/LoginCorreo'
+import LoginTelefono from './Paginas/LoginTelefono';
 import Dashboardadmin from './Paginas/Dashboardadmin';
 import Dashboardusuario from './Paginas/Dashboardusuario';
+import Paginainicio from './Paginas/Paginadeincio';
 import { AuthProvider } from './Context/AuthProvider'
 import {
   BrowserRouter,
@@ -19,8 +21,9 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route path="/" element={<Inicio />} />
-          <Route path="/login" element={<LoginTelefono />} />
+          <Route path="/" element={<Paginainicio />} />
+          <Route path="/logincorreo" element={<LoginCorreo />} />
+          <Route path="/logintelefono" element={<LoginTelefono />} />
           <Route path="/admin" element={<Dashboardadmin />} />
           <Route path="/usuario" element={<Dashboardusuario />} />
         </Routes>
