@@ -84,6 +84,7 @@ async function handleSubmit(e) {
  <Card.Body>
 
                         <Form>
+                        
                         <div class="row align-center mb-2 p-2" >
                                 <Form.Label >Correo</Form.Label>
                                 <Form.Control type="email" placeholder="Ingrese su correo" ref={correoRef} />

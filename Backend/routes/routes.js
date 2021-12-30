@@ -45,7 +45,7 @@ router.post('/LoginTelefono', async function (req, res) {
 
 //Endpoint para registro de usuarios
 router.post('/NuevoUsuario', async function (req, res) {
-    // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
+    //console.log("cui es "+req.body.cui + " nombre es "+req.body.nombre + " correo es "+req.body.correo+ " telefono es "+req.body.telefono+ " password es "+req.body.password)
      try {
          let respuesta = await programacion.NuevoUsuario(req.body.cui,req.body.nombre,req.body.correo,req.body.telefono,req.body.password);
  

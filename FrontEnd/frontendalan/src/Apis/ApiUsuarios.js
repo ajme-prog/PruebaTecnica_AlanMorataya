@@ -38,3 +38,32 @@ export var LoginCorreoApi = async function (
       }),
     });
   };
+
+
+//---Llamada api de nuevousuario
+export var NuevoUsuarioApi = async function (
+  cui,
+  nombre,
+  correo,
+  telefono,
+  password
+) {
+ 
+
+  return fetch(url_api+"/NuevoUsuario" , {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      cui: cui,
+      nombre: nombre,
+      correo: correo,
+      telefono: telefono,
+      password: password
+
+    }),
+  });
+};
