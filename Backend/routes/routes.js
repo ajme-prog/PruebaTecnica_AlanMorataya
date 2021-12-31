@@ -92,7 +92,7 @@ router.get('/GetUsuarios', async function (req, res, next) {
         res.json({usuarios:usuarios, status:200});
     } catch (err) {
         console.error(`Error al obtener todos los usuarios `, err.message);
-        next(err);
+        res.json({data:"Error",status:500});
     }
 });
 
@@ -118,5 +118,35 @@ router.post('/NuevoPremio', async function (req, res) {
  });
  
 
+//Endpoint para registro de usuarios
+router.put('/ActualizarPropietarioPremio', async function (req, res) {
+    try {
+        let respuesta = await programacion.ActualizarPropietarioPremio(req.body.cui,req.body.id);
+
+        if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+          
+            res.json({mensaje:"Error al actualizar el propietario del premio",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+         
+        } else {
+            res.json({data:respuesta,status:200});
+        }
+    } catch (err) {
+        console.error(`Error al actualizar el propietario del premio`, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
+
+
+
+//Obtener todos los premios
+router.get('/GetPremios', async function (req, res, next) {
+    try {
+        let usuarios= await programacion.getPremios();
+        res.json({premios:usuarios, status:200});
+    } catch (err) {
+        console.error(`Error al obtener todos los premios `, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
 
 module.exports = router;

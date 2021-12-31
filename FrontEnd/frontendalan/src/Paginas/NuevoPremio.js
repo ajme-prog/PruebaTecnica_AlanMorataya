@@ -43,7 +43,7 @@ const NuevoPremio = () => {
         });
 
         
-          navigate("/") //con navigate me dirigo a una pagina especifica
+          navigate("/verpremios") //con navigate me dirigo a una pagina especifica
 
       
         

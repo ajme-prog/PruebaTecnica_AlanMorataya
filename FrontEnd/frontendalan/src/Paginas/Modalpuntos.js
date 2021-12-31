@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 function ModalPuntos({ elemento }) {
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
-    const punstoRef = useRef();
+    const puntosRef = useRef();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     //---componente para el toast
@@ -24,7 +24,7 @@ function ModalPuntos({ elemento }) {
     async function handlepuntos(e) {
         e.preventDefault();
         try {
-            let puntos = parseInt(elemento.Puntos) + parseInt(punstoRef.current.value);
+            let puntos = parseInt(elemento.Puntos) + parseInt(puntosRef.current.value);
             const rawResponse = await ActualizarPuntosApi(elemento.Cui, puntos)
 
             if (rawResponse.status == 200) {
@@ -77,7 +77,7 @@ function ModalPuntos({ elemento }) {
                     <div class="row align-center mb-2 p-2" >
 
                         <Form.Label >Puntos</Form.Label>
-                        <Form.Control ref={punstoRef} placeholder="Ingrese la cantidad de puntos a agregar " />
+                        <Form.Control ref={puntosRef} placeholder="Ingrese la cantidad de puntos a agregar " />
 
 
                     </div>

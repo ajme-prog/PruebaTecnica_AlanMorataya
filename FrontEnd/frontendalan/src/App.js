@@ -9,7 +9,9 @@ import Paginainicio from './Paginas/Paginadeincio';
 import NuevoUsuario from './Paginas/NuevoUsuario';
 import NuevoPremio from './Paginas/NuevoPremio';
 import VerUsuarios from './Paginas/VerUsuarios';
+import VerPremios from './Paginas/VerPremios'
 import { AuthProvider } from './Context/AuthProvider'
+import VermisPremios from './Paginas/VerMisPremios'
 
 import {
   BrowserRouter,
@@ -33,6 +35,8 @@ function App() {
           <Route path="/registro" element={<NuevoUsuario />} />
           <Route path="/registropremio" element={<NuevoPremio />} />
           <Route path="/verusuarios" element={<VerUsuarios />} />
+          <Route path="/verpremios" element={<VerPremios />} />
+          <Route path="/vermispremios" element={<VermisPremios />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>

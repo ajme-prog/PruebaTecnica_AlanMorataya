@@ -1,6 +1,6 @@
 // Home.js
 import React, { useRef, useContext, useEffect, useState } from 'react'
-import { Form, FormGroup, Card, FormLabel, FormText, FormControl, Button, Container, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
+import { Form, FormGroup, Card, FormLabel, FormText, Spinner, Button, Container, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
 import { AuthContext } from '../Context/AuthProvider'
 import { GetUsuariosApi } from '../Apis/ApiUsuarios';
 import ModalPuntos from '../Paginas/Modalpuntos';
@@ -9,6 +9,7 @@ import NavbarAdmin from './NavbarAdmin';
 const VerUsuarios = () => {
     const { usuario, cerrarSesion, iniciarSesion } = useContext(AuthContext);
     const [usuarios, setUsuarios] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     //---componente para el toast
     const Toast = Swal.mixin({
         toast: true,
@@ -25,7 +26,7 @@ const VerUsuarios = () => {
     useEffect(() => {
         try {
             async function fetchData() {
-                //  setIsLoading(true);
+                setIsLoading(true);
                 const rawResponse = await GetUsuariosApi();
                 const respuesta = await rawResponse.json();
                 console.log(rawResponse)
@@ -33,13 +34,13 @@ const VerUsuarios = () => {
             }
 
             fetchData().then((respuesta) => {
-                // setIsLoading(false);
+                // 
                 if (respuesta.status === 200) {
 
                     setUsuarios(respuesta.usuarios)
-
+                    setIsLoading(false);
                 } else {
-
+                    setIsLoading(false);
                 }
             });
 
@@ -62,6 +63,16 @@ const VerUsuarios = () => {
 
 
     return (
+        isLoading ?
+        <>
+            <NavbarAdmin></NavbarAdmin>
+            <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        </>
+        :
         <>
             <NavbarAdmin></NavbarAdmin>
             <Card>

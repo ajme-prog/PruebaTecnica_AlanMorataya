@@ -23,6 +23,13 @@ const NavbarAdmin = () => {
 
     navigate("/verusuarios")
   }
+
+  
+  function handleirverpremios(e) {
+    e.preventDefault();
+
+    navigate("/verpremios")
+  }
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -33,7 +40,7 @@ const NavbarAdmin = () => {
             <Nav className="me-auto">
               <Nav.Link onClick={handleiracrearpremio}>Crear Premio</Nav.Link>
               <Nav.Link onClick={handleiraverusuarios}>Ver Usuarios</Nav.Link>
-
+              <Nav.Link onClick={handleirverpremios}>Ver Premios</Nav.Link>
             </Nav>
             <Nav>
 

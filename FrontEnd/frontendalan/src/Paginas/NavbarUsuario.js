@@ -11,6 +11,12 @@ const NavbarUsuario = () => {
         cerrarSesion();
         navigate("/")
     }
+
+    function handleiravermispremios(e) {
+      e.preventDefault();
+  
+      navigate("/vermispremios")
+    }
     return (
   <>
  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -19,8 +25,8 @@ const NavbarUsuario = () => {
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
-      <Nav.Link href="#features">Ver premios</Nav.Link>
-      <Nav.Link href="#pricing">Ver Usuarios</Nav.Link>
+      <Nav.Link onClick={handleiravermispremios}>Ver mis premios</Nav.Link>
+      <Nav.Link href="#pricing">Canjear premios</Nav.Link>
  
     </Nav>
     <Nav>

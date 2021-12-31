@@ -16,6 +16,12 @@ function handleirtelefono(e){
     navigate('/logintelefono');
 }
 
+function handleirregistro(e){
+    e.preventDefault();
+    navigate('/registro');
+}
+
+
 
     return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
@@ -34,6 +40,13 @@ Ingresa tus datos para acceder al sistema de premios
     <div class="row align-center mb-2 p-2" >
     <Button variant="primary" onClick={handleircorreo}>Ingresar con email</Button>
     </div>
+    <div class="row align-center mb-2 p-2" >
+    <Card.Text>
+Si no tienes una cuenta, registrate!
+    </Card.Text>
+    <Button variant="success" size="sm" onClick={handleirregistro}>Registrate</Button>
+    </div>
+    
   </Card.Body>
 </Card>
         </div>

@@ -94,7 +94,7 @@ export var NuevoPremioApi = async function (
 };
 
 
-//---Llamada api de nuevopremio
+//---Llamada api de actualizar los puntos de un usuario
 export var ActualizarPuntosApi = async function (
   cui, puntos
 ) {
@@ -129,3 +129,41 @@ export var ActualizarPuntosApi = async function (
        mode: 'cors'    
      });
    }
+
+
+
+   //----funcion para obtener todos los usuarios
+   export async function GetPremiosApi() {
+    // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));
+   // console.log("llamando a perfil usuario api")
+     return fetch(url_api + "/GetPremios", {
+       method: "GET",
+       headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+       },
+       mode: 'cors'    
+     });
+   }
+
+
+   //---Llamada api de actualizar los puntos de un usuario
+export var ActualizarPropietarioApi = async function (
+  cui, id
+) {
+ 
+
+  return fetch(url_api+"/ActualizarPropietarioPremio" , {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      cui: cui,
+      id: id
+
+    }),
+  });
+};
