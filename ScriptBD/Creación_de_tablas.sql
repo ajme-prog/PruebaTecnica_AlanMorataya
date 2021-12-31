@@ -35,3 +35,54 @@ Fechafin date
 /*Se inserta un admin por defecto, los admin solo se crean insertando directamente en la BD*/
 insert into Usuarios(Cui,Nombre,Correo,Telefono,Password,Rol,Puntos)
 values('343222222','admin','adminprueba@gmail.com','2223333','admin','0',0);
+
+
+/*LAS SIGUIENTES CONSULTAS NO TIENEN PARAMETROS YA QUE FUERON IMPLEMENTADAS DESDE EL
+BACKEND POR LO QUE AQUI SOLO SE MUESTRA LA ESTRUCTURA DE LA CONSULTA SIN SUS PARAMETROS"*/
+
+/*Login correo--*/
+ SELECT * from Usuarios where Correo=? and Password=?;
+ 
+ /*Login telefono*/
+ SELECT * from Usuarios where Telefono=? and Password=?;
+ 
+ /*Nuevo usuario*/
+ INSERT INTO Usuarios (Cui,Nombre,Correo,Telefono,Password,Rol,Puntos)
+VALUES  (?, ?, ?, ?, ?,?,?);
+
+/*Actualizar puntos del usuario*/
+UPDATE  Usuarios SET Puntos = ? where CUI = ?;
+
+
+/*Obtener todos los usuario*/
+ SELECT * from Usuarios;
+ 
+ /*Registrar premio*/
+ INSERT INTO Premios (Nombre,Descripcion,Estado,Valor) VALUES (?, ?, ? ,?);
+ 
+ /*Actualizar propietario de un premio*/
+ UPDATE  Premios SET Cui_propietario = ? where Id = ?;
+ 
+ /*Obtener todos los premios*/
+ SELECT * from Premios;
+ 
+ /*Obtener un usuario en particular*/
+ SELECT * from Usuarios where Cui = ?;
+ 
+ /*Cambiar el estado de premio cuando lo canjea un usuario*/
+ UPDATE  Premios SET Estado = '0' where Id = ?;
+ 
+ 
+ /*Obtener premios disponibles que tiene un usuario para canjear */
+ 
+ SELECT * from Premios where Cui_propietario = ? and Estado ='1';
+ 
+ /*Obtener premios que un usuarios ya canjeo*/
+ SELECT * from Premios where Cui_propietario = ? and Estado ='0';
+ 
+ /*registrar una promoción*/
+ INSERT INTO Promocion (Nombrepromocion,Descripcionpromocion,Fechainicio,Fechafin) 
+ VALUES (?, ?, ?,?);
+ 
+ /*Obtener todas las promociones*/
+ SELECT * from Promocion;
