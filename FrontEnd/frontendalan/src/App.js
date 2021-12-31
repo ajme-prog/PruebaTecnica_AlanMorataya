@@ -11,7 +11,8 @@ import NuevoPremio from './Paginas/NuevoPremio';
 import VerUsuarios from './Paginas/VerUsuarios';
 import VerPremios from './Paginas/VerPremios'
 import { AuthProvider } from './Context/AuthProvider'
-import VermisPremios from './Paginas/VerMisPremios'
+import CanjearPremios from './Paginas/CanjearPremios'
+import MisPremiosCanjeados from './Paginas/MisPremiosCanjeados'
 
 import {
   BrowserRouter,
@@ -36,7 +37,8 @@ function App() {
           <Route path="/registropremio" element={<NuevoPremio />} />
           <Route path="/verusuarios" element={<VerUsuarios />} />
           <Route path="/verpremios" element={<VerPremios />} />
-          <Route path="/vermispremios" element={<VermisPremios />} />
+          <Route path="/canjearpremios" element={<CanjearPremios />} />
+          <Route path="/mispremios" element={<MisPremiosCanjeados />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>

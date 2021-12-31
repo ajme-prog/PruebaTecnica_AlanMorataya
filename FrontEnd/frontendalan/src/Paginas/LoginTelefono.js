@@ -37,11 +37,11 @@ async function handleSubmit(e) {
         });
          
          if(rawResponse.Rol=="0"){
-          navigate("/admin") //con navigate me dirigo a una pagina especifica
+          navigate("/verusuarios") //con navigate me dirigo a una pagina especifica
 
          }
        else{
-        navigate("/usuario") //con navigate me dirigo a una pagina especifica
+        navigate("/canjearpremios") //con navigate me dirigo a una pagina especifica
        }
       }else if(rawResponse.status==400) 
        {

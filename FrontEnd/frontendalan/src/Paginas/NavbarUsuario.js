@@ -15,18 +15,25 @@ const NavbarUsuario = () => {
     function handleiravermispremios(e) {
       e.preventDefault();
   
-      navigate("/vermispremios")
+      navigate("/mispremios")
+    }
+
+    
+    function handleiracanjear(e) {
+      e.preventDefault();
+  
+      navigate("/canjearpremios")
     }
     return (
   <>
  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
   <Container>
-  <Navbar.Brand href="#home">Perfil Usuario</Navbar.Brand>
+  <Navbar.Brand >Perfil Usuario</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
       <Nav.Link onClick={handleiravermispremios}>Ver mis premios</Nav.Link>
-      <Nav.Link href="#pricing">Canjear premios</Nav.Link>
+      <Nav.Link onClick={handleiracanjear}>Canjear premios</Nav.Link>
  
     </Nav>
     <Nav>

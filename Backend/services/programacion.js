@@ -165,6 +165,60 @@ async function getPremios() {
   return rows;
 }
 
+
+
+//--funcion para actualizar el propietario del regalo este se llama cuando asigna
+async function CanjearPremio(Id) {
+  const result = await db.queryParams(
+
+    `UPDATE  Premios SET Estado = '0' where Id = ?`,
+    [Id   // el 1 significar rol usuario y se crea con 0 puntos
+
+    ]
+  );
+
+
+
+  if (result.affectedRows) {
+    message = 'Premio canjeado correctamente';
+    return { message };
+  } else {
+    return null
+  }
+
+
+}
+
+
+//---funcion para obtener los premios de un solo usuario que tiene que canjear
+async function getPremiosUsuario(Cui) {
+
+  const rows = await db.queryParams(
+    `SELECT * from Premios where Cui_propietario = ? and Estado ='1' `, [Cui]
+
+  );
+
+  if (!rows) {
+    return [];
+  }
+  return rows;
+}
+
+
+
+//---funcion para obtener los premios de un solo usuario que tiene que canjear
+async function getPremiosUsuarioCanjeados(Cui) {
+
+  const rows = await db.queryParams(
+    `SELECT * from Premios where Cui_propietario = ? and Estado ='0' `, [Cui]
+
+  );
+
+  if (!rows) {
+    return [];
+  }
+  return rows;
+}
 module.exports = {
   getUsuarios,
   LoginCorreo,
@@ -173,5 +227,8 @@ module.exports = {
   NuevoPremio,
   ActualizarPuntosUsuario,
   getPremios,
-  ActualizarPropietarioPremio
+  ActualizarPropietarioPremio,
+  getPremiosUsuario,
+  getPremiosUsuarioCanjeados,
+  CanjearPremio
 }

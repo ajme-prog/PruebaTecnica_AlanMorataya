@@ -167,3 +167,60 @@ export var ActualizarPropietarioApi = async function (
     }),
   });
 };
+
+
+
+
+   //---Llamada api de actualizar los puntos de un usuario
+   export var CanjearPremioApi = async function (
+     id
+  ) {
+   
+  
+    return fetch(url_api+"/CanjearPremio" , {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      mode: 'cors',
+      body: JSON.stringify({
+        
+        id: id
+  
+      }),
+    });
+  };
+  
+  
+  
+
+   //----funcion para obtener todos los premios a canjear
+   export async function GetPremiosUsuarioApi(cui) {
+    // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));
+   // console.log("llamando a perfil usuario api")
+     return fetch(url_api + "/GetPremiosUsuario/"+cui, {
+       method: "GET",
+       headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+       },
+       mode: 'cors'    
+     });
+   }
+
+
+    //----funcion para obtener todos los usuarios
+    export async function GetPremiosUsuarioCanjeadosApi(cui) {
+      // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));
+     // console.log("llamando a perfil usuario api")
+       return fetch(url_api + "/GetPremiosUsuarioCanjeados/"+cui, {
+         method: "GET",
+         headers: {
+           Accept: "application/json",
+           "Content-Type": "application/json",
+         },
+         mode: 'cors'    
+       });
+     }
+  

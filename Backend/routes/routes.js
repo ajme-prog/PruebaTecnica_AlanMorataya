@@ -149,4 +149,50 @@ router.get('/GetPremios', async function (req, res, next) {
     }
 });
 
+
+
+
+//Obtener todos los premios de un usuario especifico
+router.get('/GetPremiosUsuario/:cui', async function (req, res, next) {
+    try {
+        let premios= await programacion.getPremiosUsuario(req.params.cui);
+        res.json({premios:premios, status:200});
+    } catch (err) {
+        console.error(`Error al obtener todos los premios del usuario `, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
+
+
+//Obtener todos los premios de un usuario que ya fueron canjeados
+router.get('/GetPremiosUsuarioCanjeados/:cui', async function (req, res, next) {
+    try {
+        let premios= await programacion.getPremiosUsuarioCanjeados(req.params.cui);
+        res.json({premios:premios, status:200});
+    } catch (err) {
+        console.error(`Error al obtener todos los premios canjeados del usuario `, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
+
+
+//Endpoint para registro de usuarios
+router.put('/CanjearPremio', async function (req, res) {
+    try {
+        let respuesta = await programacion.CanjearPremio(req.body.id);
+
+        if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+          
+            res.json({mensaje:"Error al canjear el premio",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+         
+        } else {
+            res.json({data:respuesta,status:200});
+        }
+    } catch (err) {
+        console.error(`Error al canjear el premio`, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
+
+
 module.exports = router;
