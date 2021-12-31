@@ -99,7 +99,7 @@ export const  AuthProvider = (props) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{usuario,cerrarSesion, iniciarSesion,iniciarSesionTelefono}}>
+        <AuthContext.Provider value={{usuario,cerrarSesion, iniciarSesion,iniciarSesionTelefono,setUsuario}}>
            { props.children}
         </AuthContext.Provider>
     )

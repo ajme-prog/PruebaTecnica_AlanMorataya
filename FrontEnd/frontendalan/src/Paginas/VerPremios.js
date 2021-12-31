@@ -76,29 +76,47 @@ const VerPremios = () => {
             <>
 
                 <NavbarAdmin></NavbarAdmin>
-                <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+                <div><br></br></div>
+
+                <div className="bg-light min-vh-100  align-items-center justify-content-center">
+
+                    <div className="d-flex flex-row align-items-center justify-content-center">
 
 
-                    {
-                        premios.map((premio, index) => {
-                            return (
-                                <Card style={{ width: '18rem' }} key={index}>
-                                    <Card.Img variant="top" src="regalo.png" width={50} height={200} />
-                                    <Card.Body>
-                                        <Card.Title>{premio.Nombre}</Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
-                                        <Card.Text>
-                                            {premio.Descripcion}
-                                        </Card.Text>
+                        <h2>Premios disponibles para asignar</h2>
 
-                                        <ModaAsingarPremio elemento={premio}/>
-                                    
-                                    </Card.Body>
-                                </Card>
-                            );
-                        })
-                    }
+                    </div>
+                    <div><br></br></div>
+                    <Row md={4} mb={5}>
 
+                        {
+                            premios.map((premio, index) => {
+                                if (premio.Estado == '1') {
+
+                                    return (
+                                        <Col xs={3}>
+                                            <Card style={{ width: '18rem', mb: 5 }} key={index}>
+                                                <Card.Img variant="top" src="regalo.png" width={50} height={200} />
+                                                <Card.Body>
+                                                    <Card.Title>{premio.Nombre}</Card.Title>
+                                                    <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
+                                                    <Card.Text>
+                                                        {premio.Descripcion}
+                                                    </Card.Text>
+
+                                                    <ModaAsingarPremio elemento={premio} />
+
+                                                </Card.Body>
+                                            </Card>
+                                            <div><br></br></div>
+                                        </Col>
+
+                                    );
+                                }
+                            })
+                        }
+
+                    </Row>
 
                 </div>
 

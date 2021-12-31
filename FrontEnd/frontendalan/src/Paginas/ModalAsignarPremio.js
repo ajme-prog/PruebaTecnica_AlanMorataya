@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useEffect, useState } from 'react'
-import { Modal, Button, Form, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
+import { Modal, Button, Spinner, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
 import { ActualizarPropietarioApi, GetUsuariosApi } from '../Apis/ApiUsuarios';
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
@@ -53,10 +53,10 @@ function ModaAsingarPremio({ elemento }) {
 
     }, []);
 
-    async function handlecambiarpropietario(e,cui,nombre) {
+    async function handlecambiarpropietario(e, cui, nombre) {
         e.preventDefault();
         try {
-         
+
             const rawResponse = await ActualizarPropietarioApi(cui, elemento.Id)
 
             if (rawResponse.status == 200) {
@@ -106,8 +106,12 @@ function ModaAsingarPremio({ elemento }) {
                     <Modal.Title>{elemento.Nombre}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Asigna el premio a un usuario!
-                    <div class="row align-center mb-2 p-2" >
-
+                    <div className="row align-center mb-2 p-2" >
+                        {isLoading ?   <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div> :
                         <Table striped bordered hover size="sm">
                             <thead>
                                 <tr>
@@ -128,7 +132,7 @@ function ModaAsingarPremio({ elemento }) {
                                                 <td>{usuario.Cui}</td>
                                                 <td>{usuario.Nombre}</td>
                                                 <td> {usuario.Correo}</td>
-                                            <td>    <Button variant="success" onClick={(e)=>handlecambiarpropietario(e,usuario.Cui,usuario.Nombre)} size="sm">
+                                                <td>    <Button variant="success" onClick={(e) => handlecambiarpropietario(e, usuario.Cui, usuario.Nombre)} size="sm">
                                                     Asignar premio a usuario
                                                 </Button>
                                                 </td>
@@ -139,6 +143,7 @@ function ModaAsingarPremio({ elemento }) {
 
                             </tbody>
                         </Table>
+}
                     </div>
 
                 </Modal.Body>
@@ -147,7 +152,7 @@ function ModaAsingarPremio({ elemento }) {
                         Cancelar
                     </Button>
 
-                
+
                 </Modal.Footer>
             </Modal>
         </>

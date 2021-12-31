@@ -224,3 +224,42 @@ export var ActualizarPropietarioApi = async function (
        });
      }
   
+
+     
+   //----funcion para obtener todos los premios a canjear
+   export async function GetUsuarioUnicoApi(cui) {
+    // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));
+   // console.log("llamando a perfil usuario api")
+     return fetch(url_api + "/GetUsuarioUnico/"+cui, {
+       method: "GET",
+       headers: {
+         Accept: "application/json",
+         "Content-Type": "application/json",
+       },
+       mode: 'cors'    
+     });
+   }
+
+
+   
+//---Llamada api de nuevopremio
+export var NuevaPromocionApi = async function (
+  nombre,
+  descripcion
+  
+) {
+ 
+
+  return fetch(url_api+"/NuevaPromocion" , {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      nombre: nombre,
+      descripcion: descripcion
+    }),
+  });
+};

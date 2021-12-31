@@ -175,6 +175,16 @@ router.get('/GetPremiosUsuarioCanjeados/:cui', async function (req, res, next) {
     }
 });
 
+//Obtener todos los usuarios
+router.get('/GetUsuarioUnico/:cui', async function (req, res, next) {
+    try {
+        let usuario= await programacion.getUsuarioUnico(req.params.cui);
+        res.json({usuario:usuario, status:200});
+    } catch (err) {
+        console.error(`Error al obtener los datos del usuario `, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
 
 //Endpoint para registro de usuarios
 router.put('/CanjearPremio', async function (req, res) {
@@ -194,5 +204,25 @@ router.put('/CanjearPremio', async function (req, res) {
     }
 });
 
+
+//Endpoint para registro de Premios
+router.post('/NuevaPromocion', async function (req, res) {
+    // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
+     try {
+         let respuesta = await programacion.NuevaPromocion(req.body.nombre,req.body.descripcion);
+ 
+         if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
+           
+             res.json({mensaje:"Error al crear la promocion",status:400});  //status 400 solicitud defectuosa, credenciales incorrectas
+          
+         } else {
+             res.json({data:respuesta,status:200});
+         }
+     } catch (err) {
+         console.error(`Error al crear la promocion `, err.message);
+         res.json({data:"Error",status:500});
+     }
+ });
+ 
 
 module.exports = router;

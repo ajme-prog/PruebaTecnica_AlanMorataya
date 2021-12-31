@@ -18,6 +18,12 @@ const NavbarAdmin = () => {
     navigate("/registropremio")
   }
 
+  function handleircrearpromocion(e) {
+    e.preventDefault();
+
+    navigate("/registropromocion")
+  }
+
   function handleiraverusuarios(e) {
     e.preventDefault();
 
@@ -39,8 +45,11 @@ const NavbarAdmin = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link onClick={handleiracrearpremio}>Crear Premio</Nav.Link>
-              <Nav.Link onClick={handleiraverusuarios}>Ver Usuarios</Nav.Link>
+              <Nav.Link onClick={handleircrearpromocion}>Crear Promoción</Nav.Link>
               <Nav.Link onClick={handleirverpremios}>Ver Premios</Nav.Link>
+              <Nav.Link onClick={handleirverpremios}>Ver Promociones</Nav.Link>
+              <Nav.Link onClick={handleiraverusuarios}>Ver Usuarios</Nav.Link>
+          
             </Nav>
             <Nav>
 

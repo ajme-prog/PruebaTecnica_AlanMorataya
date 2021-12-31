@@ -39,7 +39,7 @@ const MisPremiosCanjeados = () => {
                 // setIsLoading(false);
                 if (respuesta.status === 200) {
                     //  alert("si es 200")
-                     console.log("si es 200")
+                    console.log("si es 200")
                     setpremios(respuesta.premios)
                     setIsLoading(false);
                     console.log(respuesta.premios.length)
@@ -76,53 +76,58 @@ const MisPremiosCanjeados = () => {
                     </Spinner>
                 </div>
             </>
-          :
-          premios.length == 0 ?
-          <>
-          <NavbarUsuario></NavbarUsuario>
-          <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+            :
+            premios.length == 0 ?
+                <>
+                    <NavbarUsuario></NavbarUsuario>
+                    <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
 
-              <h1 >No tienes premios canjeados...</h1>
+                        <h1 >No tienes premios canjeados...</h1>
 
-          </div>
-          </>
-              :
+                    </div>
+                </>
+                :
                 <>
 
                     <NavbarUsuario></NavbarUsuario>
-                    <div className="bg-light ">
-                        <Button variant="primary">
-                            Puntos disponibles <Badge bg="secondary">{usuario.Puntos}</Badge>
-                            <span className="visually-hidden">{usuario.Puntos}</span>
-                        </Button>
-                    </div>
-
-                    <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
 
 
-                        {
-                            premios.map((premio, index) => {
-                                return (
-                                    <div md={{ span: 4, offset: 4 }}>
-                                        <Card md={{ span: 4, offset: 4 }} style={{ width: '18rem' }} key={index}>
-                                            <Card.Img variant="top" src="regalo.png" width={50} height={200} />
-                                            <Card.Body>
-                                                <Card.Title>{premio.Nombre}</Card.Title>
-                                                <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
-                                                <Card.Text>
-                                                    {premio.Descripcion}
-                                                </Card.Text>
+                    <div className="bg-light min-vh-100  align-items-center justify-content-center">
+                    <div><br></br></div>
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+
+
+                            <h2>Premios canjeados</h2>
+
+                        </div>
+                        <div><br></br></div>
+                        <div><br></br></div>
+                        <Row md={4} mb={5}>
+
+                            {
+                                premios.map((premio, index) => {
+                                    return (
+                                        <Col xs={3}>
+                                            <Card md={{ span: 4, offset: 4 }} style={{ width: '18rem' }} key={index}>
+                                                <Card.Img variant="top" src="regalo.png" width={50} height={200} />
+                                                <Card.Body>
+                                                    <Card.Title>{premio.Nombre}</Card.Title>
+                                                    <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
+                                                    <Card.Text>
+                                                        {premio.Descripcion}
+                                                    </Card.Text>
 
 
 
-                                            </Card.Body>
-                                        </Card>
-                                    </div>
-                                );
-                            })
-                        }
+                                                </Card.Body>
+                                            </Card>
+                                            <div><br></br></div>
+                                        </Col>
+                                    );
+                                })
+                            }
 
-
+                        </Row>
                     </div>
 
                 </>

@@ -166,6 +166,21 @@ async function getPremios() {
 }
 
 
+//---funcion para obtener todos los premios
+async function getUsuarioUnico(cui) {
+
+  const rows = await db.queryParams(
+    `SELECT * from Usuarios where Cui = ?`, [cui]
+
+  );
+
+  if (!rows) {
+    return [];
+  }
+  return rows[0];
+}
+
+
 
 //--funcion para actualizar el propietario del regalo este se llama cuando asigna
 async function CanjearPremio(Id) {
@@ -219,6 +234,33 @@ async function getPremiosUsuarioCanjeados(Cui) {
   }
   return rows;
 }
+
+
+
+//--funcion para registrar usuario
+async function NuevaPromocion(Nombre, Descripcion) {
+  const result = await db.queryParams(
+
+    `INSERT INTO Promocion 
+      (Nombrepromocion,Descripcionpromocion)
+      VALUES 
+      (?, ?)`,
+    [Nombre,Descripcion   // el 1 significar rol usuario y se crea con 0 puntos
+
+    ]
+  );
+
+
+
+  if (result.affectedRows) {
+    message = 'Promoción creada correctamente';
+    return { message };
+  } else {
+    return null
+  }
+
+
+}
 module.exports = {
   getUsuarios,
   LoginCorreo,
@@ -230,5 +272,7 @@ module.exports = {
   ActualizarPropietarioPremio,
   getPremiosUsuario,
   getPremiosUsuarioCanjeados,
-  CanjearPremio
+  CanjearPremio,
+  getUsuarioUnico,
+  NuevaPromocion
 }

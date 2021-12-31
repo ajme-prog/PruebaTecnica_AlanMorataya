@@ -2,13 +2,14 @@
 import React, { useRef, useContext, useEffect, useState, useLoad } from 'react'
 import { Form, FormGroup, Card, FormLabel, ProgressBar, Spinner, Badge, ListGroupItem, FormText, FormControl, Button, Container, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
 import { AuthContext } from '../Context/AuthProvider'
-import { GetPremiosUsuarioApi, CanjearPremioApi } from '../Apis/ApiUsuarios';
+import { GetPremiosUsuarioApi, CanjearPremioApi, ActualizarPuntosApi, GetUsuarioUnicoApi } from '../Apis/ApiUsuarios';
 import ModaAsingarPremio from './ModalAsignarPremio';
 import Swal from "sweetalert2";
 import NavbarUsuario from './NavbarUsuario';
 const CanjearPremios = () => {
-    const { usuario, cerrarSesion, iniciarSesion } = useContext(AuthContext);
+    const { usuario, cerrarSesion, iniciarSesion, setUsuario } = useContext(AuthContext);
     const [premios, setpremios] = useState([]);
+    const [mispuntos, setMiSPuntos] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     //---componente para el toast
     const Toast = Swal.mixin({
@@ -38,7 +39,8 @@ const CanjearPremios = () => {
             fetchData().then((respuesta) => {
                 // setIsLoading(false);
                 if (respuesta.status === 200) {
-                  
+                    console.log(" la lenght es " + respuesta.premios.length)
+                    setMiSPuntos(usuario.Puntos)
                     setpremios(respuesta.premios)
                     setIsLoading(false);
                 } else {
@@ -50,9 +52,12 @@ const CanjearPremios = () => {
 
         }
 
+        
+
+   
     }, []);
 
-    //---Funcion para login
+    //---Funcion para cambiar premio
     async function handlecambiar(e, id, valor) {
         e.preventDefault();
         try {
@@ -66,16 +71,24 @@ const CanjearPremios = () => {
                 });
                 return;
             }
+            //---canjeo el premio
             const rawResponse = await CanjearPremioApi(id);
             const respuesta = await rawResponse.json();
-
-            if (respuesta.status == 200) {
+            //--cambio los puntos del usuario
+            let puntos = parseInt(usuario.Puntos) - parseInt(valorint);
+            const rawResponse2 = await ActualizarPuntosApi(usuario.Cui, puntos)
+            const respuesta2 = await rawResponse2.json();
+            const rawResponse3 = await GetUsuarioUnicoApi(usuario.Cui)
+            const respuesta3 = await rawResponse3.json();
+           
+            if (respuesta.status == 200 && respuesta2.status == 200  && respuesta3.status == 200) {
+                setMiSPuntos(respuesta3.usuario.Puntos)
                 Toast.fire({
                     icon: "success",
                     title: `Premio Canjeado de manera exitosa!`,
-                    timer: 4000,
+                    timer: 1500,
                 });
-
+                setTimeout(() => window.location.reload(), 1500);
             } else if (respuesta.status == 400) {
                 Toast.fire({
                     icon: "warning",
@@ -99,6 +112,7 @@ const CanjearPremios = () => {
     }
 
 
+
     return (
         isLoading ?
             <>
@@ -111,50 +125,66 @@ const CanjearPremios = () => {
             </>
             :
             premios.length == 0 ?
-            <>
-            <NavbarUsuario></NavbarUsuario>
-            <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+                <>
+                    <NavbarUsuario></NavbarUsuario>
+                    <div className="bg-light ">
+                        <Button variant="primary">
+                            Puntos disponibles <Badge bg="secondary">{mispuntos}</Badge>
+                            <span className="visually-hidden">{mispuntos}</span>
+                        </Button>
+                    </div>
+                    <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
 
-                <h1 >No tienes premios para canjear en este momento...</h1>
+                        <h1 >No tienes premios para canjear en este momento...</h1>
 
-            </div>
-            </>
+                    </div>
+                </>
                 :
                 <>
 
                     <NavbarUsuario></NavbarUsuario>
                     <div className="bg-light ">
                         <Button variant="primary">
-                            Puntos disponibles <Badge bg="secondary">{usuario.Puntos}</Badge>
-                            <span className="visually-hidden">{usuario.Puntos}</span>
+                            Puntos disponibles <Badge bg="secondary">{mispuntos}</Badge>
+                            <span className="visually-hidden">{mispuntos}</span>
                         </Button>
                     </div>
 
-                    <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
+
+                    <div className="bg-light min-vh-100  align-items-center justify-content-center">
+                    <div><br></br></div>
+                        <div className="d-flex flex-row align-items-center justify-content-center">
 
 
-                        {
-                            premios.map((premio, index) => {
-                                return (
-                                    <div md={{ span: 4, offset: 4 }}>
-                                        <Card md={{ span: 4, offset: 4 }} style={{ width: '18rem' }} key={index}>
-                                            <Card.Img variant="top" src="regalo.png" width={50} height={200} />
-                                            <Card.Body>
-                                                <Card.Title>{premio.Nombre}</Card.Title>
-                                                <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
-                                                <Card.Text>
-                                                    {premio.Descripcion}
-                                                </Card.Text>
+                            <h2>Premios disponibles para canjear</h2>
 
-                                                <Button variant='success' onClick={(e) => handlecambiar(e, premio.Id, premio.Valor)}> Canjear Premio</Button>
+                        </div>
+                        <div><br></br></div>
+                        <div><br></br></div>
+                        <Row md={4} mb={5}>
 
-                                            </Card.Body>
-                                        </Card>
-                                    </div>
-                                );
-                            })
-                        }
+                            {
+                                premios.map((premio, index) => {
+                                    return (
+                                        <Col xs={3}>
+                                            <Card md={{ span: 4, offset: 4 }} style={{ width: '18rem' }} key={index}>
+                                                <Card.Img variant="top" src="regalo.png" width={50} height={200} />
+                                                <Card.Body>
+                                                    <Card.Title>{premio.Nombre}</Card.Title>
+                                                    <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
+                                                    <Card.Text>
+                                                        {premio.Descripcion}
+                                                    </Card.Text>
 
+                                                    <Button variant='success' onClick={(e) => handlecambiar(e, premio.Id, premio.Valor)}> Canjear Premio</Button>
+
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    );
+                                })
+                            }
+                        </Row>
 
                     </div>
 
