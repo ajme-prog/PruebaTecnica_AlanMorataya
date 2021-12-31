@@ -6,11 +6,13 @@ import { GetPremiosUsuarioApi, CanjearPremioApi, ActualizarPuntosApi, GetUsuario
 import ModaAsingarPremio from './ModalAsignarPremio';
 import Swal from "sweetalert2";
 import NavbarUsuario from './NavbarUsuario';
+import { useNavigate } from 'react-router-dom';
 const CanjearPremios = () => {
     const { usuario, cerrarSesion, iniciarSesion, setUsuario } = useContext(AuthContext);
     const [premios, setpremios] = useState([]);
     const [mispuntos, setMiSPuntos] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
     //---componente para el toast
     const Toast = Swal.mixin({
         toast: true,
@@ -48,6 +50,27 @@ const CanjearPremios = () => {
                 }
             });
 
+            async function fetchData2() {
+               
+                setIsLoading(true);
+                const rawResponse2 = await GetUsuarioUnicoApi(usuario.Cui)
+                const respuesta2 = await rawResponse2.json();
+                return respuesta2;
+            }
+             
+            fetchData2().then((respuesta2) => {
+                // setIsLoading(false);
+                if (respuesta2.status === 200) {
+                    console.log(" los puntos son " + respuesta2.usuario.Puntos)
+                    setMiSPuntos(respuesta2.usuario.Puntos)
+                    
+                    setIsLoading(false);
+                } else {
+                    setIsLoading(false);
+                } });
+            
+        
+
         } catch (e) {
 
         }
@@ -61,6 +84,7 @@ const CanjearPremios = () => {
     async function handlecambiar(e, id, valor) {
         e.preventDefault();
         try {
+            setIsLoading(true);
             let valorint = parseInt(valor);
             let puntosusuario = parseInt(usuario.Puntos);
             if (valorint > puntosusuario) {
@@ -88,14 +112,16 @@ const CanjearPremios = () => {
                     title: `Premio Canjeado de manera exitosa!`,
                     timer: 1500,
                 });
-                setTimeout(() => window.location.reload(), 1500);
+                setIsLoading(false);
+                navigate('/mispremios')
+                
             } else if (respuesta.status == 400) {
                 Toast.fire({
                     icon: "warning",
                     title: `¡Algo fallo al canjear el premio!`,
                     timer: 3000,
                 });
-
+                setIsLoading(false);
 
             } else {
                 Toast.fire({
@@ -103,7 +129,7 @@ const CanjearPremios = () => {
                     title: `¡Ocurrio un error en el servidor!`,
                     timer: 3000,
                 });
-
+                setIsLoading(false);
             }
         } catch (error) {
 
@@ -127,7 +153,8 @@ const CanjearPremios = () => {
             premios.length == 0 ?
                 <>
                     <NavbarUsuario></NavbarUsuario>
-                    <div className="bg-light ">
+                    <div><br></br></div>
+                    <div className="bg-light p-3">
                         <Button variant="primary">
                             Puntos disponibles <Badge bg="secondary">{mispuntos}</Badge>
                             <span className="visually-hidden">{mispuntos}</span>

@@ -14,7 +14,8 @@ import { AuthProvider } from './Context/AuthProvider'
 import CanjearPremios from './Paginas/CanjearPremios'
 import MisPremiosCanjeados from './Paginas/MisPremiosCanjeados'
 import NuevaPromocion from './Paginas/NuevaPromocion';
-
+import VerPromociones from './Paginas/VerPromociones';
+import VerPromocionesUsuario from './Paginas/VerPromocionesUsuario';
 import {
   BrowserRouter,
   Routes,
@@ -41,6 +42,8 @@ function App() {
           <Route path="/canjearpremios" element={<CanjearPremios />} />
           <Route path="/mispremios" element={<MisPremiosCanjeados />} />
           <Route path="/registropromocion" element={<NuevaPromocion />} />
+          <Route path="/verpromociones" element={<VerPromociones />} />
+          <Route path="/verpromocionesusuario" element={<VerPromocionesUsuario />} />
         </Routes>
       </BrowserRouter>
       </AuthProvider>

@@ -209,7 +209,7 @@ router.put('/CanjearPremio', async function (req, res) {
 router.post('/NuevaPromocion', async function (req, res) {
     // console.log("telefono es "+req.body.telefono + " password es "+req.body.password)
      try {
-         let respuesta = await programacion.NuevaPromocion(req.body.nombre,req.body.descripcion);
+         let respuesta = await programacion.NuevaPromocion(req.body.nombre,req.body.descripcion,req.body.fechainicio,req.body.fechafin);
  
          if (respuesta === null) { //si devuelvo null es porque no encontre ningun usuario con ese correo
            
@@ -224,5 +224,18 @@ router.post('/NuevaPromocion', async function (req, res) {
      }
  });
  
+
+ 
+//Obtener todos los premios
+router.get('/GetPromociones', async function (req, res, next) {
+    try {
+        let promociones= await programacion.getPromociones();
+        res.json({promociones:promociones, status:200});
+    } catch (err) {
+        console.error(`Error al obtener todas las promociones `, err.message);
+        res.json({data:"Error",status:500});
+    }
+});
+
 
 module.exports = router;

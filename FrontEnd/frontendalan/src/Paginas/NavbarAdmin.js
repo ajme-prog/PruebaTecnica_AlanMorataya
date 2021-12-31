@@ -36,6 +36,13 @@ const NavbarAdmin = () => {
 
     navigate("/verpremios")
   }
+
+  
+  function handleirverpromociones(e) {
+    e.preventDefault();
+
+    navigate("/verpromociones")
+  }
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -47,7 +54,7 @@ const NavbarAdmin = () => {
               <Nav.Link onClick={handleiracrearpremio}>Crear Premio</Nav.Link>
               <Nav.Link onClick={handleircrearpromocion}>Crear Promoción</Nav.Link>
               <Nav.Link onClick={handleirverpremios}>Ver Premios</Nav.Link>
-              <Nav.Link onClick={handleirverpremios}>Ver Promociones</Nav.Link>
+              <Nav.Link onClick={handleirverpromociones}>Ver Promociones</Nav.Link>
               <Nav.Link onClick={handleiraverusuarios}>Ver Usuarios</Nav.Link>
           
             </Nav>

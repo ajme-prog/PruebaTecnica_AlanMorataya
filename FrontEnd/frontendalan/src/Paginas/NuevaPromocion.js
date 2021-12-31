@@ -12,7 +12,8 @@ const NuevaPromocion = () => {
 
     const nombreRef = useRef();
     const descripcionRef = useRef();
-
+    const fechainicioRef = useRef();
+    const fechafinRef = useRef();
     //---componente para el toast
     const Toast = Swal.mixin({
         toast: true,
@@ -32,7 +33,7 @@ const NuevaPromocion = () => {
         try {
 
             //console.log(" EL TELEFONO ES "+telefonoRef.current.value)
-            const rawResponse = await NuevaPromocionApi(nombreRef.current.value, descripcionRef.current.value)
+            const rawResponse = await NuevaPromocionApi(nombreRef.current.value, descripcionRef.current.value, fechainicioRef.current.value,fechafinRef.current.value)
 
             if (rawResponse.status == 200) {
                 Toast.fire({
@@ -42,7 +43,7 @@ const NuevaPromocion = () => {
                 });
 
 
-                navigate("/verpremios") //con navigate me dirigo a una pagina especifica
+                navigate("/verpromociones") //con navigate me dirigo a una pagina especifica
 
 
 
@@ -108,9 +109,28 @@ const NuevaPromocion = () => {
 
 
                             </div>
+                            <div className="row align-center mb-2 p-2" >
+
+                                <Form.Label >Fecha Inicio de la promoción</Form.Label>
+                                <Form.Control type="Date" placeholder="Ingrese la descripción de la promoción" ref={fechainicioRef} />
+                                <Form.Text className="text-muted">
+
+                                </Form.Text>
 
 
+                            </div>
 
+
+                            <div className="row align-center mb-2 p-2" >
+
+                                <Form.Label >Fecha Fin de la promoción</Form.Label>
+                                <Form.Control type="Date" placeholder="Ingrese la descripción de la promoción" ref={fechafinRef} />
+                                <Form.Text className="text-muted">
+
+                                </Form.Text>
+
+
+                            </div>
 
 
                             <Button variant="success" onClick={handleSubmit}>

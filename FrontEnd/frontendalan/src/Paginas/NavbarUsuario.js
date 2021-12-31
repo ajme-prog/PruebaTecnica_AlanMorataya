@@ -24,6 +24,12 @@ const NavbarUsuario = () => {
   
       navigate("/canjearpremios")
     }
+
+    function handleirverpromociones(e) {
+      e.preventDefault();
+  
+      navigate("/verpromocionesusuario")
+    }
     return (
   <>
  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -34,6 +40,7 @@ const NavbarUsuario = () => {
     <Nav className="me-auto">
       <Nav.Link onClick={handleiravermispremios}>Ver mis premios</Nav.Link>
       <Nav.Link onClick={handleiracanjear}>Canjear premios</Nav.Link>
+      <Nav.Link onClick={handleirverpromociones}>Ver Promociones</Nav.Link>
  
     </Nav>
     <Nav>

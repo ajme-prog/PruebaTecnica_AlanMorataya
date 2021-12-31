@@ -2,13 +2,13 @@
 import React, { useRef, useContext, useEffect, useState, useLoad } from 'react'
 import { Form, FormGroup, Card, FormLabel, ProgressBar, Spinner, ListGroup, ListGroupItem, FormText, FormControl, Button, Container, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
 import { AuthContext } from '../Context/AuthProvider'
-import { GetPremiosApi } from '../Apis/ApiUsuarios';
+import { GetPromocionesApi } from '../Apis/ApiUsuarios';
 import ModaAsingarPremio from './ModalAsignarPremio';
 import Swal from "sweetalert2";
-import NavbarAdmin from './NavbarAdmin';
-const VerPremios = () => {
+import NavbarUsuario from './NavbarUsuario';
+const VerPromocionesUsuario = () => {
     const { usuario, cerrarSesion, iniciarSesion } = useContext(AuthContext);
-    const [premios, setpremios] = useState([]);
+    const [promociones, setpromociones] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     //---componente para el toast
     const Toast = Swal.mixin({
@@ -27,7 +27,7 @@ const VerPremios = () => {
         try {
             async function fetchData() {
                 setIsLoading(true);
-                const rawResponse = await GetPremiosApi();
+                const rawResponse = await GetPromocionesApi();
                 const respuesta = await rawResponse.json();
                 console.log(rawResponse)
                 return respuesta;
@@ -37,7 +37,7 @@ const VerPremios = () => {
                 // setIsLoading(false);
                 if (respuesta.status === 200) {
                     //  alert("si es 200")
-                    setpremios(respuesta.premios)
+                    setpromociones(respuesta.promociones)
                     setIsLoading(false);
                 } else {
                     setIsLoading(false);
@@ -65,7 +65,7 @@ const VerPremios = () => {
     return (
         isLoading ?
             <>
-                <NavbarAdmin></NavbarAdmin>
+                <NavbarUsuario></NavbarUsuario>
                 <div className="bg-light min-vh-100 d-flex flex-row align-items-center justify-content-center">
                     <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
@@ -75,7 +75,7 @@ const VerPremios = () => {
             :
             <>
 
-                <NavbarAdmin></NavbarAdmin>
+                <NavbarUsuario></NavbarUsuario>
                 <div><br></br></div>
 
                 <div className="bg-light min-vh-100  align-items-center justify-content-center">
@@ -83,34 +83,30 @@ const VerPremios = () => {
                     <div className="d-flex flex-row align-items-center justify-content-center">
 
 
-                        <h2 >Premios disponibles para asignar</h2 >
+                        <h2>Promociones disponibles</h2>
 
-                    </div>
-                    <div className="d-flex flex-row align-items-center justify-content-center">
-
-
-
-                        <span className='text-muted'>El premio dejara de aparecer disponible hasta que el usuario lo reclame (canjeo)</span>
                     </div>
                     <div><br></br></div>
                     <Row md={4} mb={5}>
 
                         {
-                            premios.map((premio, index) => {
-                                if (premio.Estado == '1') {
+                            promociones.map((premio, index) => {
+                             
 
                                     return (
                                         <Col xs={3}>
                                             <Card style={{ width: '18rem', mb: 5 }} key={index}>
-                                                <Card.Img variant="top" src="regalo.png" width={50} height={200} />
+                                                <Card.Img variant="top" src="promociones.png" width={50} height={200} />
                                                 <Card.Body>
-                                                    <Card.Title>{premio.Nombre}</Card.Title>
-                                                    <Card.Subtitle className="mb-2 text-muted">Valor: {premio.Valor}</Card.Subtitle>
+                                                    <Card.Title>{premio.Nombrepromocion}</Card.Title>
+                                                    <Card.Subtitle className="mb-2 text-muted">Fecha inicio: {premio.Fechainicio.split('T')[0]}</Card.Subtitle>
+                                                    <Card.Subtitle className="mb-2 text-muted">Fecha fin: {premio.Fechafin.split('T')[0]}</Card.Subtitle>
+                                                   
                                                     <Card.Text>
-                                                        {premio.Descripcion}
+                                                        {premio.Descripcionpromocion}
                                                     </Card.Text>
 
-                                                    <ModaAsingarPremio elemento={premio} />
+                                       
 
                                                 </Card.Body>
                                             </Card>
@@ -118,7 +114,7 @@ const VerPremios = () => {
                                         </Col>
 
                                     );
-                                }
+                              
                             })
                         }
 
@@ -130,4 +126,4 @@ const VerPremios = () => {
     );
 }
 
-export default VerPremios
+export default VerPromocionesUsuario

@@ -238,21 +238,21 @@ async function getPremiosUsuarioCanjeados(Cui) {
 
 
 //--funcion para registrar usuario
-async function NuevaPromocion(Nombre, Descripcion) {
+async function NuevaPromocion(Nombre, Descripcion,Fechainicio,Fechafin) {
   const result = await db.queryParams(
 
     `INSERT INTO Promocion 
-      (Nombrepromocion,Descripcionpromocion)
+      (Nombrepromocion,Descripcionpromocion,Fechainicio,Fechafin)
       VALUES 
-      (?, ?)`,
-    [Nombre,Descripcion   // el 1 significar rol usuario y se crea con 0 puntos
+      (?, ?, ?,?)`,
+    [Nombre,Descripcion,Fechainicio,Fechafin   // el 1 significar rol usuario y se crea con 0 puntos
 
     ]
   );
 
 
 
-  if (result.affectedRows) {
+  if (result.affectedRows.length!=0) {
     message = 'Promoción creada correctamente';
     return { message };
   } else {
@@ -261,6 +261,23 @@ async function NuevaPromocion(Nombre, Descripcion) {
 
 
 }
+
+
+
+//---funcion para obtener todos los premios
+async function getPromociones() {
+
+  const rows = await db.query(
+    `SELECT * from Promocion`,
+
+  );
+
+  if (!rows) {
+    return [];
+  }
+  return rows;
+}
+
 module.exports = {
   getUsuarios,
   LoginCorreo,
@@ -274,5 +291,6 @@ module.exports = {
   getPremiosUsuarioCanjeados,
   CanjearPremio,
   getUsuarioUnico,
-  NuevaPromocion
+  NuevaPromocion,
+  getPromociones
 }
