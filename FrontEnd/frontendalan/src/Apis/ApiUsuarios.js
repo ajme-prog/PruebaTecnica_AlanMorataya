@@ -94,6 +94,28 @@ export var NuevoPremioApi = async function (
 };
 
 
+//---Llamada api de nuevopremio
+export var ActualizarPuntosApi = async function (
+  cui, puntos
+) {
+ 
+
+  return fetch(url_api+"/ActualizarPuntos" , {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      cui: cui,
+      puntos: puntos
+
+    }),
+  });
+};
+
+
    //----funcion para obtener todos los usuarios
    export async function GetUsuariosApi() {
     // let usuarioActual = await JSON.parse(localStorage.getItem("usuarioActual"));

@@ -65,7 +65,6 @@ router.post('/NuevoUsuario', async function (req, res) {
 
 //Endpoint para registro de usuarios
 router.put('/ActualizarPuntos', async function (req, res) {
-    //console.log("cui es "+req.body.cui + " nombre es "+req.body.nombre + " correo es "+req.body.correo+ " telefono es "+req.body.telefono+ " password es "+req.body.password)
      try {
          let respuesta = await programacion.ActualizarPuntosUsuario(req.body.cui,req.body.puntos);
  

@@ -3,6 +3,7 @@ import React, { useRef, useContext, useEffect, useState } from 'react'
 import { Form, FormGroup, Card, FormLabel, FormText, FormControl, Button, Container, Row, Col, input, Table, tbody, td, th } from 'react-bootstrap';
 import { AuthContext } from '../Context/AuthProvider'
 import { GetUsuariosApi } from '../Apis/ApiUsuarios';
+import ModalPuntos from '../Paginas/Modalpuntos';
 import Swal from "sweetalert2";
 import NavbarAdmin from './NavbarAdmin';
 const VerUsuarios = () => {
@@ -92,7 +93,7 @@ const VerUsuarios = () => {
                                             <td>{usuario.Correo}</td>
                                             <td>{usuario.Telefono}</td>
                                             <td>{usuario.Puntos}</td>
-                                            <td ><Button variant="success">Asignar puntos</Button></td>
+                                            <td ><ModalPuntos elemento={usuario}/></td>
                                         </tr>
                                     );
                                 })
